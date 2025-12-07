@@ -1,0 +1,863 @@
+{
+	"info": {
+		"_postman_id": "0d152672-fa3b-4090-a9cc-3965649c9666",
+		"name": "Shortengo",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "33040575"
+	},
+	"item": [
+		{
+			"name": "Auth",
+			"item": [
+				{
+					"name": "register",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"testreg\",\n    \"email\": \"testreg@email.ru\",\n    \"password\": \"testreg@email.ru\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8000/api/v1/auth/register",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"v1",
+								"auth",
+								"register"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "login",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Referer",
+								"value": "localhost:3000",
+								"type": "text"
+							},
+							{
+								"key": "Origin",
+								"value": "localhost:3000",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\": \"admin@admin.com\",\n    \"password\": \"admin@admin.com\",\n    \"remember\": false\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8000/api/v1/auth/login",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"v1",
+								"auth",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "logout",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOjE5LCJleHAiOjM0ODkxMTEwMDIsImlhdCI6MTc0NDU1NTA1MX0.HM24Aws1EBXEWbri7pv5nXz_G2G877o6XCN87Ix7N2Q",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"refresh_token\": \"admin@admin.com\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8000/api/v1/auth/logout",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"v1",
+								"auth",
+								"logout"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "password-forgot",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOjE5LCJleHAiOjM0ODkxMTEwMDIsImlhdCI6MTc0NDU1NTA1MX0.HM24Aws1EBXEWbri7pv5nXz_G2G877o6XCN87Ix7N2Q",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\": \"admin@admin.com\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8000/api/v1/auth/password/forgot",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"v1",
+								"auth",
+								"password",
+								"forgot"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "password-reset",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\": \"admin@admin.com\",\n    \"token\": \"778c992c179c3dca0e25f6753fa292a19e94a9afd25f63ef7db4db27a83ad1ef\",\n    \"password\": \"admin@admin.com\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8000/api/v1/auth/password/reset",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"v1",
+								"auth",
+								"password",
+								"reset"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "refresh",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOjE5LCJleHAiOjM0ODkxMzcyNDgsImlhdCI6MTc0NDU2ODE3NH0.xFRWe32JSuFi3_C03jndJpDhkqNA8610SdadzlChbX4",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"refresh_token\": \"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOjE5LCJqdGkiOiJkZDUzN2M0ZC0yMTllLTRjYWItOTQ4NS0wNGZhNmM5OTNlYjciLCJleHAiOjM0ODk3NDExNDgsImlhdCI6MTc0NDU2ODE3NH0.rcTURXkqJ4nXljDPI9oidlIYvqZbi-zWEbvEUQc5_Bc\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8000/api/v1/auth/refresh",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"v1",
+								"auth",
+								"refresh"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "csrf",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\": \"admin@admin.com\",\n    \"password\": \"admin@admin.com\",\n    \"remember\": false\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8000/sanctum/csrf-cookie",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"sanctum",
+								"csrf-cookie"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Links",
+			"item": [
+				{
+					"name": "Guest",
+					"item": []
+				},
+				{
+					"name": "index",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOjE5LCJleHAiOjM0ODkxNDI3MzQsImlhdCI6MTc0NDU3MDkxN30.Sv5D0zjEi-GzQwYKfWmmEcVqlVWHmnREPsP8vBsJasM",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Referer",
+								"value": "localhost:3000",
+								"type": "text"
+							},
+							{
+								"key": "Origin",
+								"value": "localhost:3000",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8000/api/v1/links/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"v1",
+								"links",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "show",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Referer",
+								"value": "localhost:3000",
+								"type": "text"
+							},
+							{
+								"key": "Origin",
+								"value": "localhost:3000",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8000/api/v1/links/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"v1",
+								"links",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "store",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOjEsImV4cCI6MzQ4OTE2NDgxMiwiaWF0IjoxNzQ0NTgxOTU2fQ.a0Gsd-rss9_MTPc41W90a6zspXkZIu8jQnGlTA7bdx0",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"url\": \"https://google.com\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8000/api/v1/links",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"v1",
+								"links"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOjEsImV4cCI6MzQ4OTE2NDgxMiwiaWF0IjoxNzQ0NTgxOTU2fQ.a0Gsd-rss9_MTPc41W90a6zspXkZIu8jQnGlTA7bdx0",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"expires_at\": \"2025-12-01T00:00:00Z\",\n  \"redirect_limit\": 10,\n  \"password\": \"123456\"\n}\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8000/api/v1/links/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"v1",
+								"links",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "analytics",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8000/api/v1/links/1/analytics?period=7d",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"v1",
+								"links",
+								"1",
+								"analytics"
+							],
+							"query": [
+								{
+									"key": "period",
+									"value": "7d"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "User",
+			"item": [
+				{
+					"name": "current",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOjEsImV4cCI6MzQ4OTE2NDgxMiwiaWF0IjoxNzQ0NTgxOTU2fQ.a0Gsd-rss9_MTPc41W90a6zspXkZIu8jQnGlTA7bdx0",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8000/api/v1/user/current",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"v1",
+								"user",
+								"current"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Widgets",
+			"item": [
+				{
+					"name": "New Request",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Tags",
+			"item": [
+				{
+					"name": "index",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Referer",
+								"value": "localhost:3000",
+								"type": "text"
+							},
+							{
+								"key": "Origin",
+								"value": "localhost:3000",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8000/api/v1/tags",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"v1",
+								"tags"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "store",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Referer",
+								"value": "localhost:3000",
+								"type": "text"
+							},
+							{
+								"key": "Origin",
+								"value": "localhost:3000",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"test\",\n    \"color\": \"#777777\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8000/api/v1/tags",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"v1",
+								"tags"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "attach",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Referer",
+								"value": "localhost:3000",
+								"type": "text"
+							},
+							{
+								"key": "Origin",
+								"value": "localhost:3000",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"tag_id\": 63\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8000/api/v1/links/1/tags/attach",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"v1",
+								"links",
+								"1",
+								"tags",
+								"attach"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "detach",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Referer",
+								"value": "localhost:3000",
+								"type": "text"
+							},
+							{
+								"key": "Origin",
+								"value": "localhost:3000",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"tag_id\": 63\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8000/api/v1/links/1/tags/detach",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"v1",
+								"links",
+								"1",
+								"tags",
+								"detach"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Tariffs",
+			"item": [
+				{
+					"name": "index",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Referer",
+								"value": "localhost:3000",
+								"type": "text"
+							},
+							{
+								"key": "Origin",
+								"value": "localhost:3000",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8000/api/v1/tariffs",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"v1",
+								"tariffs"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Webhooks",
+			"item": [
+				{
+					"name": "index",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8000/api/v1/webhooks",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"v1",
+								"webhooks"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "accounts",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Referer",
+						"value": "localhost:3000",
+						"type": "text"
+					},
+					{
+						"key": "Origin",
+						"value": "localhost:3000",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:8000/api/v1/accounts",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"v1",
+						"accounts"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://testvkrevive1.nskvorcov.amocrm2.saas/ajax/settings/widgets/get_base_integrations",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "*/*"
+					},
+					{
+						"key": "Accept-Language",
+						"value": "ru-RU,ru;q=0.9"
+					},
+					{
+						"key": "Connection",
+						"value": "keep-alive"
+					},
+					{
+						"key": "Referer",
+						"value": "http://testvkrevive1.nskvorcov.amocrm2.saas/amo-market/"
+					},
+					{
+						"key": "User-Agent",
+						"value": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36"
+					},
+					{
+						"key": "X-Requested-With",
+						"value": "XMLHttpRequest"
+					},
+					{
+						"key": "Cookie",
+						"value": "_gcl_au=1.1.1083782382.1760690217; _gid=GA1.2.2040377923.1760690219; _ym_uid=1760690219410124070; _ym_d=1760690219; tmr_lvid=bf80ea7a45435408f56c18b4b94209d6; tmr_lvidTS=1760690219225; _ym_isad=2; _fbp=fb.1.1760690220804.486723514274523620; session_id=jld3mvd9teqdl23rvca44lbd9t7c191e; user_lang=ru; gso_visitor_uid=cb7b9d3c-50eb-5b7f-9488-eaee3233dd47; LAST_PLACE_DEALS=pipeline%2F7103342; displayed_widgets_count_settings_widgets=0; _ga=GA1.2.1237238361.1760690218; _ga_ZRNBRFQGWK=GS2.1.s1760700543$o2$g0$t1760700546$j57$l0$h0; refresh_token=def5020011dd832b81cd845b58f398ae0d303bb29305f1ad8120c7a2703f7ea6328d367bf816baa7d475bb99e1ffd7fdfc99cfa20f32a00a4da5b0e49865b244da9c49f8b165740ac87a37950cacf85027838f5373d9d64b7a845f8f4100715ceb8650e8c6ef2565092a4819c36823c91c1682011b950dae146ff8067c1d44137c7ca4a56645a93b255bd078a788faa745b3c7c4d6144821e141c89966e255e51f9c97dff1773e475362b645ff653c8c9a0d109494a63c78c5d498bd866aba198bf698ae6341af2c811572abc9ca365130237074bfa7f87d7e6228283258ce35894dc7230b2244620827518e26246fd0f7b5ecb09f1d383097d7608001e8ba56eebd1831b5be331feddfdd30842d72862c8a1ead7b026f2133f09955e473eb37ef2eb137c054152e80baab84b0ee395152602525182957cc2bf06e3eb0a30a24f7b56c316d4b591bd7a4b69c340a8f3dce67c8d2296fdf5723f13258896c5839edd6831d796bcf2a69490f80a1bedb08f74ee7c5a78cb08611c40555fe216984027fb05b4c9ec4430b2dbb7bead8fdf1f21a0cfcf6b91aeba2ed9c1dfc05cba2bbfed6a411b78f1ba3effb52ec5f001f5b0f77dfcaaf7486c47b6491fbba9085418b76b9650e1217b1dd0a1bbd420593adc319da; access_token=eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImp0aSI6ImMzYzI5ZDBiM2ZjOWEzMjRmNTI5Zjk0MTAzOGU5ZDY4ODY2YTVkMjM2ZmY4NzZmZDA1MDM2NzNhODg4ZDVlNDMzYmI4YzQyYWViZWI5YjViIn0.eyJhdWQiOiI3YjQ5MGYxOC0yYmU1LTRhNTUtYTc0ZS0xOTYzYzk2NDFiOTgiLCJqdGkiOiJjM2MyOWQwYjNmYzlhMzI0ZjUyOWY5NDEwMzhlOWQ2ODg2NmE1ZDIzNmZmODc2ZmQwNTAzNjczYTg4OGQ1ZTQzM2JiOGM0MmFlYmViOWI1YiIsImlhdCI6MTc2MDcwMzU1MywibmJmIjoxNzYwNzAzNTUzLCJleHAiOjE3NjA3MDU5NTMsInN1YiI6Ijg0NjU5MTgiLCJncmFudF90eXBlIjoiIiwiYWNjb3VudF9pZCI6MCwiYmFzZV9kb21haW4iOm51bGwsInZlcnNpb24iOjEsInNjb3BlcyI6WyJjaGF0cyIsImNybSIsIm1haWwiLCJub3RpZmljYXRpb25zIiwidW5zb3J0ZWQiXSwidXNlcl9mbGFncyI6MCwiaGFzaF91dWlkIjoiMmM4MmYzZTgtYTgxMS00ZWMzLTk4ODktYmY4ZGViMWJiOTBmIn0.qoeZEnEyogu3VVg4Ty7BBMaI7qToPlQ8Y_CTipi6YKRlqB-0WP1Thm-9Pu6Pv2wCi9kxngROzlSE1WPO-p76sHf0YiccvUCEW-a4xVXckH6wr19ZZE902p7A8OtaVOXgpUeBSQCSSkoPCWjiYPNR0_Ydd17SLuf1ESegduGImd1cs2vTX0kYOGnE5QZv1AewvakO7NlM3-5wPT6t9KvY_7Q5mCt5p_vJn8E-0vOYB-_AlaVOVDZPz9bL5KUCB5JLN1wxCE-32VXzbmQbbNQBsdYQ-azx-oxc-ALO9miZVX8zb-qfhCNxt2c0fUoBCRoGSLtjrmx7_lBiMDYHKZjy-A; LAST_PLACE=amo-market"
+					}
+				],
+				"url": {
+					"raw": "http://testvkrevive1.nskvorcov.amocrm2.saas/ajax/settings/widgets/get_base_integrations",
+					"protocol": "http",
+					"host": [
+						"testvkrevive1",
+						"nskvorcov",
+						"amocrm2",
+						"saas"
+					],
+					"path": [
+						"ajax",
+						"settings",
+						"widgets",
+						"get_base_integrations"
+					]
+				},
+				"description": "Generated from cURL: curl 'http://testvkrevive1.nskvorcov.amocrm2.saas/ajax/settings/widgets/get_base_integrations' \\\n  -H 'Accept: */*' \\\n  -H 'Accept-Language: ru-RU,ru;q=0.9' \\\n  -H 'Connection: keep-alive' \\\n  -b '_gcl_au=1.1.1083782382.1760690217; _gid=GA1.2.2040377923.1760690219; _ym_uid=1760690219410124070; _ym_d=1760690219; tmr_lvid=bf80ea7a45435408f56c18b4b94209d6; tmr_lvidTS=1760690219225; _ym_isad=2; _fbp=fb.1.1760690220804.486723514274523620; session_id=jld3mvd9teqdl23rvca44lbd9t7c191e; user_lang=ru; gso_visitor_uid=cb7b9d3c-50eb-5b7f-9488-eaee3233dd47; LAST_PLACE_DEALS=pipeline%2F7103342; displayed_widgets_count_settings_widgets=0; _ga=GA1.2.1237238361.1760690218; _ga_ZRNBRFQGWK=GS2.1.s1760700543$o2$g0$t1760700546$j57$l0$h0; refresh_token=def5020011dd832b81cd845b58f398ae0d303bb29305f1ad8120c7a2703f7ea6328d367bf816baa7d475bb99e1ffd7fdfc99cfa20f32a00a4da5b0e49865b244da9c49f8b165740ac87a37950cacf85027838f5373d9d64b7a845f8f4100715ceb8650e8c6ef2565092a4819c36823c91c1682011b950dae146ff8067c1d44137c7ca4a56645a93b255bd078a788faa745b3c7c4d6144821e141c89966e255e51f9c97dff1773e475362b645ff653c8c9a0d109494a63c78c5d498bd866aba198bf698ae6341af2c811572abc9ca365130237074bfa7f87d7e6228283258ce35894dc7230b2244620827518e26246fd0f7b5ecb09f1d383097d7608001e8ba56eebd1831b5be331feddfdd30842d72862c8a1ead7b026f2133f09955e473eb37ef2eb137c054152e80baab84b0ee395152602525182957cc2bf06e3eb0a30a24f7b56c316d4b591bd7a4b69c340a8f3dce67c8d2296fdf5723f13258896c5839edd6831d796bcf2a69490f80a1bedb08f74ee7c5a78cb08611c40555fe216984027fb05b4c9ec4430b2dbb7bead8fdf1f21a0cfcf6b91aeba2ed9c1dfc05cba2bbfed6a411b78f1ba3effb52ec5f001f5b0f77dfcaaf7486c47b6491fbba9085418b76b9650e1217b1dd0a1bbd420593adc319da; access_token=eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImp0aSI6ImMzYzI5ZDBiM2ZjOWEzMjRmNTI5Zjk0MTAzOGU5ZDY4ODY2YTVkMjM2ZmY4NzZmZDA1MDM2NzNhODg4ZDVlNDMzYmI4YzQyYWViZWI5YjViIn0.eyJhdWQiOiI3YjQ5MGYxOC0yYmU1LTRhNTUtYTc0ZS0xOTYzYzk2NDFiOTgiLCJqdGkiOiJjM2MyOWQwYjNmYzlhMzI0ZjUyOWY5NDEwMzhlOWQ2ODg2NmE1ZDIzNmZmODc2ZmQwNTAzNjczYTg4OGQ1ZTQzM2JiOGM0MmFlYmViOWI1YiIsImlhdCI6MTc2MDcwMzU1MywibmJmIjoxNzYwNzAzNTUzLCJleHAiOjE3NjA3MDU5NTMsInN1YiI6Ijg0NjU5MTgiLCJncmFudF90eXBlIjoiIiwiYWNjb3VudF9pZCI6MCwiYmFzZV9kb21haW4iOm51bGwsInZlcnNpb24iOjEsInNjb3BlcyI6WyJjaGF0cyIsImNybSIsIm1haWwiLCJub3RpZmljYXRpb25zIiwidW5zb3J0ZWQiXSwidXNlcl9mbGFncyI6MCwiaGFzaF91dWlkIjoiMmM4MmYzZTgtYTgxMS00ZWMzLTk4ODktYmY4ZGViMWJiOTBmIn0.qoeZEnEyogu3VVg4Ty7BBMaI7qToPlQ8Y_CTipi6YKRlqB-0WP1Thm-9Pu6Pv2wCi9kxngROzlSE1WPO-p76sHf0YiccvUCEW-a4xVXckH6wr19ZZE902p7A8OtaVOXgpUeBSQCSSkoPCWjiYPNR0_Ydd17SLuf1ESegduGImd1cs2vTX0kYOGnE5QZv1AewvakO7NlM3-5wPT6t9KvY_7Q5mCt5p_vJn8E-0vOYB-_AlaVOVDZPz9bL5KUCB5JLN1wxCE-32VXzbmQbbNQBsdYQ-azx-oxc-ALO9miZVX8zb-qfhCNxt2c0fUoBCRoGSLtjrmx7_lBiMDYHKZjy-A; LAST_PLACE=amo-market' \\\n  -H 'Referer: http://testvkrevive1.nskvorcov.amocrm2.saas/amo-market/' \\\n  -H 'User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36' \\\n  -H 'X-Requested-With: XMLHttpRequest' \\\n  --insecure"
+			},
+			"response": []
+		}
+	]
+}

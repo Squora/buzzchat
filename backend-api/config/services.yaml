@@ -1,0 +1,68 @@
+# This file is the entry point to configure your own services.
+# Files in the packages/ subdirectory configure your dependencies.
+
+# Put parameters here that don't need to change on each machine where the app is deployed
+# https://symfony.com/doc/current/best_practices.html#use-parameters-for-application-configuration
+parameters:
+
+services:
+    # default configuration for services in *this* file
+    _defaults:
+        autowire: true      # Automatically injects dependencies in your services.
+        autoconfigure: true # Automatically registers your services as commands, event subscribers, etc.
+
+    # makes classes in src/ available to be used as services
+    # this creates a service per class whose id is the fully-qualified class name
+    App\:
+        resource: '../src/'
+        exclude:
+            - '../src/DependencyInjection/'
+            - '../src/Entity/'
+            - '../src/Kernel.php'
+
+    # add more service definitions when explicit configuration is needed
+    # please note that last definitions always *replace* previous ones
+
+    # Auth configuration
+    App\Auth\Service\AuthConfig:
+        arguments:
+            $accessTokenTtl: '%env(int:JWT_ACCESS_TOKEN_TTL)%'
+            $refreshTokenTtl: '%env(int:JWT_REFRESH_TOKEN_TTL)%'
+
+    # Refresh Token Response Subscriber - transforms response to OAuth2 format
+    App\Auth\EventSubscriber\RefreshTokenResponseSubscriber:
+        arguments:
+            $appEnv: '%kernel.environment%'
+        tags:
+            - { name: kernel.event_subscriber }
+
+    # Exception Subscriber
+    App\Shared\EventSubscriber\ExceptionSubscriber:
+        arguments:
+            $environment: '%kernel.environment%'
+        tags:
+            - { name: kernel.event_subscriber }
+
+    # Verification Code Sender - use log for dev/test
+    App\Auth\Contracts\VerificationCodeSenderInterface:
+        alias: 'App\Auth\Service\CodeSender\LogCodeSender'
+        public: true
+
+    # SMS sender configuration (used by SmsCodeSender)
+    App\Auth\Contracts\SmsSenderInterface:
+        alias: 'App\Auth\Service\SmsLoggerSender'
+        public: true
+
+when@prod:
+    services:
+        # Verification Code Sender - use SMS for production
+        App\Auth\Contracts\VerificationCodeSenderInterface:
+            alias: 'App\Auth\Service\CodeSender\SmsCodeSender'
+
+        # SMS sender configuration - use real API sender for production
+        App\Auth\Contracts\SmsSenderInterface:
+            alias: 'App\Auth\Service\SmsApiSender'
+
+        App\Auth\Service\SmsApiSender:
+            arguments:
+                $apiToken: '%env(SMS_API_TOKEN)%'

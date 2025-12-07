@@ -1,0 +1,1186 @@
+{
+	"info": {
+		"_postman_id": "af083452-1301-4a0d-bbbc-e545304e0fec",
+		"name": "BuzzChat API",
+		"description": "Complete API collection for BuzzChat backend",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "33040575"
+	},
+	"item": [
+		{
+			"name": "Auth",
+			"item": [
+				{
+					"name": "Register - Start",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"phone\": \"+79991234567\",\n  \"email\": \"user@example.com\",\n  \"firstName\": \"John\",\n  \"lastName\": \"Doe\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/auth/register",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"auth",
+								"register"
+							]
+						},
+						"description": "Start registration process. SMS code will be sent to the phone."
+					},
+					"response": []
+				},
+				{
+					"name": "Register - Verify Code",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"if (pm.response.code === 200) {",
+									"    const jsonData = pm.response.json();",
+									"    pm.collectionVariables.set('access_token', jsonData.token);",
+									"    pm.collectionVariables.set('refresh_token', jsonData.refresh_token);",
+									"}"
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"requests": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"phone\": \"+79991234567\",\n  \"code\": \"8430\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/auth/register/verify",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"auth",
+								"register",
+								"verify"
+							]
+						},
+						"description": "Verify SMS code and complete registration"
+					},
+					"response": []
+				},
+				{
+					"name": "Login - Request Code",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"phone\": \"+79991234567\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/auth/login/request-code",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"auth",
+								"login",
+								"request-code"
+							]
+						},
+						"description": "Request login code via SMS"
+					},
+					"response": []
+				},
+				{
+					"name": "Login - Verify Code",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"if (pm.response.code === 200) {",
+									"    const jsonData = pm.response.json();",
+									"    pm.collectionVariables.set('access_token', jsonData.token);",
+									"    pm.collectionVariables.set('refresh_token', jsonData.refresh_token);",
+									"}"
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"requests": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"phone\": \"+79991234567\",\n  \"code\": \"8842\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/auth/login/verify",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"auth",
+								"login",
+								"verify"
+							]
+						},
+						"description": "Login with verification code"
+					},
+					"response": []
+				},
+				{
+					"name": "Refresh Token",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"if (pm.response.code === 200) {",
+									"    const jsonData = pm.response.json();",
+									"    pm.collectionVariables.set('access_token', jsonData.token);",
+									"    pm.collectionVariables.set('refresh_token', jsonData.refresh_token);",
+									"}"
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"requests": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"refresh_token\": \"{{refresh_token}}\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/auth/token/refresh",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"auth",
+								"token",
+								"refresh"
+							]
+						},
+						"description": "Refresh access token using refresh token"
+					},
+					"response": []
+				},
+				{
+					"name": "Get Current User",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/auth/current",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"auth",
+								"current"
+							]
+						},
+						"description": "Get currently authenticated user"
+					},
+					"response": []
+				},
+				{
+					"name": "Logout",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"refresh_token\": \"{{refresh_token}}\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/auth/logout",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"auth",
+								"logout"
+							]
+						},
+						"description": "Logout and invalidate refresh token"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Chat",
+			"item": [
+				{
+					"name": "Create Group Chat",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"name\": \"Team Discussion\",\n  \"description\": \"Chat for team collaboration\",\n  \"memberIds\": [2, 3, 4]\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/chats/group",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"chats",
+								"group"
+							]
+						},
+						"description": "Create a new group chat"
+					},
+					"response": []
+				},
+				{
+					"name": "Create/Get Direct Chat",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"userId\": 2\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/chats/direct",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"chats",
+								"direct"
+							]
+						},
+						"description": "Create or get existing direct chat with another user"
+					},
+					"response": []
+				},
+				{
+					"name": "Get All User Chats",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/chats",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"chats"
+							]
+						},
+						"description": "Get all chats for current user"
+					},
+					"response": []
+				},
+				{
+					"name": "Get Chat Details",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/chats/:chatId",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"chats",
+								":chatId"
+							],
+							"variable": [
+								{
+									"key": "chatId",
+									"value": "1"
+								}
+							]
+						},
+						"description": "Get chat details including members"
+					},
+					"response": []
+				},
+				{
+					"name": "Update Chat",
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"name\": \"Updated Chat Name\",\n  \"description\": \"Updated description\",\n  \"photoUrl\": \"https://example.com/photo.jpg\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/chats/:chatId",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"chats",
+								":chatId"
+							],
+							"variable": [
+								{
+									"key": "chatId",
+									"value": "1"
+								}
+							]
+						},
+						"description": "Update chat name, description, or photo (admins only)"
+					},
+					"response": []
+				},
+				{
+					"name": "Add Members",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"userIds\": [5, 6]\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/chats/:chatId/members",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"chats",
+								":chatId",
+								"members"
+							],
+							"variable": [
+								{
+									"key": "chatId",
+									"value": "1"
+								}
+							]
+						},
+						"description": "Add members to chat (admins only)"
+					},
+					"response": []
+				},
+				{
+					"name": "Remove Member",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/chats/:chatId/members/:userId",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"chats",
+								":chatId",
+								"members",
+								":userId"
+							],
+							"variable": [
+								{
+									"key": "chatId",
+									"value": "1"
+								},
+								{
+									"key": "userId",
+									"value": "5"
+								}
+							]
+						},
+						"description": "Remove member from chat (admins only)"
+					},
+					"response": []
+				},
+				{
+					"name": "Leave Chat",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/chats/:chatId/leave",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"chats",
+								":chatId",
+								"leave"
+							],
+							"variable": [
+								{
+									"key": "chatId",
+									"value": "1"
+								}
+							]
+						},
+						"description": "Leave chat (owner cannot leave)"
+					},
+					"response": []
+				},
+				{
+					"name": "Update Member Role",
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"userId\": 3,\n  \"role\": \"admin\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/chats/:chatId/members/role",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"chats",
+								":chatId",
+								"members",
+								"role"
+							],
+							"variable": [
+								{
+									"key": "chatId",
+									"value": "1"
+								}
+							]
+						},
+						"description": "Update member role (owner only)"
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Chat",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/chats/:chatId",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"chats",
+								":chatId"
+							],
+							"variable": [
+								{
+									"key": "chatId",
+									"value": "1"
+								}
+							]
+						},
+						"description": "Delete chat (owner only)"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "User",
+			"item": [
+				{
+					"name": "Get User Profile",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/users/:userId",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"users",
+								":userId"
+							],
+							"variable": [
+								{
+									"key": "userId",
+									"value": "1"
+								}
+							]
+						},
+						"description": "Get user profile by ID"
+					},
+					"response": []
+				},
+				{
+					"name": "Update User Profile",
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"photoUrl\": \"https://example.com/avatar.jpg\",\n  \"position\": \"Senior Developer\",\n  \"statusMessage\": \"Working on new features\",\n  \"departmentId\": 1\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/users/:userId",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"users",
+								":userId"
+							],
+							"variable": [
+								{
+									"key": "userId",
+									"value": "1"
+								}
+							]
+						},
+						"description": "Update user profile"
+					},
+					"response": []
+				},
+				{
+					"name": "Get All Users",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/users?departmentId=1&isActive=true",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"users"
+							],
+							"query": [
+								{
+									"key": "departmentId",
+									"value": "1",
+									"description": "Filter by department"
+								},
+								{
+									"key": "isActive",
+									"value": "true",
+									"description": "Filter by active status"
+								}
+							]
+						},
+						"description": "Get all users with optional filters"
+					},
+					"response": []
+				},
+				{
+					"name": "Update Online Status",
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"status\": \"available\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/users/me/status",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"users",
+								"me",
+								"status"
+							]
+						},
+						"description": "Update online status (available, busy, away, offline)"
+					},
+					"response": []
+				},
+				{
+					"name": "Get User Settings",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/users/me/settings",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"users",
+								"me",
+								"settings"
+							]
+						},
+						"description": "Get current user settings"
+					},
+					"response": []
+				},
+				{
+					"name": "Update User Settings",
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"theme\": \"dark\",\n  \"notifications\": true,\n  \"sound\": true,\n  \"emailNotifications\": false,\n  \"showOnlineStatus\": true,\n  \"language\": \"en\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/users/me/settings",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"users",
+								"me",
+								"settings"
+							]
+						},
+						"description": "Update user settings"
+					},
+					"response": []
+				},
+				{
+					"name": "Deactivate User",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/users/:userId/deactivate",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"users",
+								":userId",
+								"deactivate"
+							],
+							"variable": [
+								{
+									"key": "userId",
+									"value": "2"
+								}
+							]
+						},
+						"description": "Deactivate user account (admin only)"
+					},
+					"response": []
+				},
+				{
+					"name": "Activate User",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/users/:userId/activate",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"users",
+								":userId",
+								"activate"
+							],
+							"variable": [
+								{
+									"key": "userId",
+									"value": "2"
+								}
+							]
+						},
+						"description": "Activate user account (admin only)"
+					},
+					"response": []
+				},
+				{
+					"name": "Create Department",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"name\": \"Engineering\",\n  \"description\": \"Software development team\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/departments",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"departments"
+							]
+						},
+						"description": "Create new department (admin only)"
+					},
+					"response": []
+				},
+				{
+					"name": "Update Department",
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"name\": \"Engineering Department\",\n  \"description\": \"Software development and QA team\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/departments/:departmentId",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"departments",
+								":departmentId"
+							],
+							"variable": [
+								{
+									"key": "departmentId",
+									"value": "1"
+								}
+							]
+						},
+						"description": "Update department (admin only)"
+					},
+					"response": []
+				},
+				{
+					"name": "Get All Departments",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/departments",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"departments"
+							]
+						},
+						"description": "Get all departments"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Message",
+			"item": [
+				{
+					"name": "Send Message",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"chatId\": 1,\n  \"content\": \"Hello @user, check this out!\",\n  \"mentionedUserIds\": [2],\n  \"attachments\": [\n    {\n      \"url\": \"https://example.com/file.pdf\",\n      \"type\": \"document\",\n      \"name\": \"document.pdf\",\n      \"size\": 1024000\n    }\n  ]\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/messages",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"messages"
+							]
+						},
+						"description": "Send a new message"
+					},
+					"response": []
+				},
+				{
+					"name": "Get Messages",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/messages?chatId=1&limit=50&beforeId=100",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"messages"
+							],
+							"query": [
+								{
+									"key": "chatId",
+									"value": "1"
+								},
+								{
+									"key": "limit",
+									"value": "50"
+								},
+								{
+									"key": "beforeId",
+									"value": "100",
+									"description": "Get messages before this ID (pagination)"
+								}
+							]
+						},
+						"description": "Get messages from chat with pagination"
+					},
+					"response": []
+				},
+				{
+					"name": "Update Message",
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"content\": \"Updated message content\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/messages/:messageId",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"messages",
+								":messageId"
+							],
+							"variable": [
+								{
+									"key": "messageId",
+									"value": "1"
+								}
+							]
+						},
+						"description": "Update message content (author only)"
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Message",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/messages/:messageId",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"messages",
+								":messageId"
+							],
+							"variable": [
+								{
+									"key": "messageId",
+									"value": "1"
+								}
+							]
+						},
+						"description": "Delete message (author or chat admin)"
+					},
+					"response": []
+				},
+				{
+					"name": "Add Reaction",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"emoji\": \"👍\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/messages/:messageId/reactions",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"messages",
+								":messageId",
+								"reactions"
+							],
+							"variable": [
+								{
+									"key": "messageId",
+									"value": "1"
+								}
+							]
+						},
+						"description": "Add emoji reaction to message"
+					},
+					"response": []
+				},
+				{
+					"name": "Mark as Read",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/messages/:messageId/read",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"messages",
+								":messageId",
+								"read"
+							],
+							"variable": [
+								{
+									"key": "messageId",
+									"value": "1"
+								}
+							]
+						},
+						"description": "Mark message as read"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Internal (WebSocket Gateway)",
+			"item": [
+				{
+					"name": "Validate Token",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"token\": \"{{access_token}}\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/internal/validate-token",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"internal",
+								"validate-token"
+							]
+						},
+						"description": "Validate JWT token (for WebSocket gateway)"
+					},
+					"response": []
+				},
+				{
+					"name": "Get User",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/internal/users/:userId",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"internal",
+								"users",
+								":userId"
+							],
+							"variable": [
+								{
+									"key": "userId",
+									"value": "1"
+								}
+							]
+						},
+						"description": "Get user data (for WebSocket gateway)"
+					},
+					"response": []
+				},
+				{
+					"name": "Get Chat Members",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/internal/chats/:chatId/members",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"internal",
+								"chats",
+								":chatId",
+								"members"
+							],
+							"variable": [
+								{
+									"key": "chatId",
+									"value": "1"
+								}
+							]
+						},
+						"description": "Get chat members (for WebSocket gateway)"
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"auth": {
+		"type": "bearer",
+		"bearer": [
+			{
+				"key": "token",
+				"value": "{{access_token}}",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"requests": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"requests": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "base_url",
+			"value": "http://localhost:8000/api/v1"
+		},
+		{
+			"key": "access_token",
+			"value": ""
+		},
+		{
+			"key": "refresh_token",
+			"value": ""
+		}
+	]
+}

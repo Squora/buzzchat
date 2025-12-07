@@ -1,0 +1,35 @@
+includes:
+    - vendor/phpstan/phpstan-symfony/extension.neon
+    - vendor/phpstan/phpstan-doctrine/extension.neon
+    - vendor/phpstan/phpstan-phpunit/extension.neon
+    - vendor/phpstan/phpstan-strict-rules/rules.neon
+
+parameters:
+    level: 8
+    paths:
+        - src
+        - tests
+    excludePaths:
+        - src/Kernel.php
+    symfony:
+        container_xml_path: var/cache/dev/App_KernelDevDebugContainer.xml
+        console_application_loader: tests/phpstan/console-application-loader.php
+    doctrine:
+        repositoryClass: Doctrine\ORM\EntityRepository
+        objectManagerLoader: tests/phpstan/object-manager-loader.php
+    reportUnmatchedIgnoredErrors: false
+    checkMissingIterableValueType: true
+    checkGenericClassInNonGenericObjectType: true
+    checkModelProperties: true
+    checkDynamicProperties: true
+    checkFunctionNameCase: true
+    checkInternalClassCaseSensitivity: true
+    checkTooWideReturnTypesInProtectedAndPublicMethods: true
+    checkUninitializedProperties: true
+    checkMissingCallableSignature: true
+    treatPhpDocTypesAsCertain: false
+    ignoreErrors:
+        # Allow dynamic properties on entities (Doctrine)
+        - '#Access to an undefined property Doctrine\\ORM\\EntityManagerInterface::\$\w+#'
+        # Allow mixed types in some cases for API Platform
+        - '#Method .+::.+\(\) has parameter \$\w+ with no value type specified in iterable type array#'

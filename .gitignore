@@ -1,0 +1,136 @@
+# ============================================
+# IDEs & Editors
+# ============================================
+.idea/
+.vscode/*
+!.vscode/extensions.json
+*.swp
+*.swo
+*~
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+# ============================================
+# OS
+# ============================================
+.DS_Store
+Thumbs.db
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Desktop.ini
+
+# ============================================
+# Environment & Secrets
+# ============================================
+# Ignore all .env files except .env.example
+.env
+.env.local
+.env.*.local
+.env.production.local
+.env.development.local
+!.env.example
+!**/.env.example
+
+# JWT Keys (Backend)
+backend-api/config/jwt/*.pem
+backend-api/config/jwt/*.key
+
+# Symfony .env files with secrets
+backend-api/.env
+backend-api/.env.dev
+
+# ============================================
+# Backend (Symfony/PHP)
+# ============================================
+backend-api/vendor/
+backend-api/var/
+backend-api/.phpunit.cache/
+backend-api/.phpunit.result.cache
+backend-api/phpunit.xml
+backend-api/public/bundles/
+backend-api/public/assets/
+backend-api/assets/vendor/
+backend-api/symfony.lock.bak
+
+# ============================================
+# Frontend (React/Vite/Node)
+# ============================================
+frontend/node_modules/
+frontend/dist/
+frontend/dist-ssr/
+frontend/build/
+frontend/.cache/
+frontend/coverage/
+frontend/.nyc_output/
+frontend/.next/
+frontend/out/
+frontend/*.tsbuildinfo
+
+# Logs
+frontend/logs/
+frontend/*.log
+frontend/npm-debug.log*
+frontend/yarn-debug.log*
+frontend/yarn-error.log*
+frontend/pnpm-debug.log*
+frontend/lerna-debug.log*
+
+# ============================================
+# GoGate (Go)
+# ============================================
+gogate/bin/
+gogate/vendor/
+gogate/*.exe
+gogate/*.exe~
+gogate/*.dll
+gogate/*.so
+gogate/*.dylib
+gogate/*.test
+gogate/*.out
+gogate/go.work
+
+# ============================================
+# Docker
+# ============================================
+docker-compose.override.yml
+*.override.yml
+
+# ============================================
+# Logs (Global)
+# ============================================
+*.log
+logs/
+*.log.*
+
+# ============================================
+# Testing & Coverage
+# ============================================
+coverage/
+.coverage
+htmlcov/
+.pytest_cache/
+.phpunit.result.cache
+
+# ============================================
+# Build artifacts
+# ============================================
+*.tar
+*.tar.gz
+*.zip
+*.rar
+
+# ============================================
+# Temporary files
+# ============================================
+*.tmp
+*.temp
+*.swp
+*.bak
+*.cache
+.cache/

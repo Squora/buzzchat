@@ -1,0 +1,84 @@
+services:
+  # PostgreSQL Database
+  database:
+    image: postgres:16-alpine
+    container_name: buzzchat_db
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB:-buzzchat}
+      POSTGRES_USER: ${POSTGRES_USER:-buzzchat}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-buzzchat}
+    ports:
+      - "5432:5432"
+    volumes:
+      - db_data:/var/lib/postgresql/data
+    networks:
+      - buzzchat
+    healthcheck:
+      test: ["CMD", "pg_isready", "-U", "${POSTGRES_USER:-buzzchat}"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  # Backend API (Symfony)
+  backend:
+    build:
+      context: ./backend-api
+      dockerfile: Dockerfile
+    container_name: buzzchat_backend
+    depends_on:
+      database:
+        condition: service_healthy
+    volumes:
+      - ./backend-api:/var/www/html
+    environment:
+      APP_ENV: dev
+      DATABASE_URL: "postgresql://${POSTGRES_USER:-buzzchat}:${POSTGRES_PASSWORD:-buzzchat}@database:5432/${POSTGRES_DB:-buzzchat}?serverVersion=16"
+    networks:
+      - buzzchat
+
+  # Nginx (reverse proxy for backend)
+  nginx:
+    image: nginx:alpine
+    container_name: buzzchat_nginx
+    depends_on:
+      - backend
+    ports:
+      - "8080:80"
+    volumes:
+      - ./backend-api:/var/www/html
+      - ./backend-api/docker/nginx/default.conf:/etc/nginx/conf.d/default.conf
+    networks:
+      - buzzchat
+
+  # Frontend (React + Vite)
+  frontend:
+    image: node:20-alpine
+    container_name: buzzchat_frontend
+    working_dir: /app
+    command: sh -c "npm install && npm run dev -- --host"
+    volumes:
+      - ./frontend:/app
+    ports:
+      - "5173:5173"
+    networks:
+      - buzzchat
+
+  # WebSocket Gateway (Go)
+  gogate:
+    image: golang:1.24-alpine
+    container_name: buzzchat_gogate
+    working_dir: /app
+    command: sh -c "go mod download && go run main.go"
+    volumes:
+      - ./gogate:/app
+    ports:
+      - "8081:8081"
+    networks:
+      - buzzchat
+
+volumes:
+  db_data:
+
+networks:
+  buzzchat:
+    driver: bridge
