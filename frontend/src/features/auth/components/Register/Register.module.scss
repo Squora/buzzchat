@@ -65,19 +65,30 @@
   transition: border-color 0.2s;
   font-family: inherit;
   background: #ffffff;
+  color: #000000;
 
   &:focus {
     border-color: #000000;
   }
 
   &:disabled {
-    background: #fafafa;
+    background: #ffffff;
     cursor: not-allowed;
-    color: #999999;
+    color: #000000;
+    opacity: 0.6;
   }
 
   &::placeholder {
     color: #999999;
+  }
+
+  // Переопределение стилей автозаполнения браузера
+  &:-webkit-autofill,
+  &:-webkit-autofill:hover,
+  &:-webkit-autofill:focus,
+  &:-webkit-autofill:active {
+    -webkit-box-shadow: 0 0 0 30px #ffffff inset !important;
+    -webkit-text-fill-color: #000000 !important;
   }
 }
 
