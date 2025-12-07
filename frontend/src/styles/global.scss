@@ -1,0 +1,388 @@
+@import './design-tokens.scss';
+@import './modals.scss';
+
+// ===================================
+// GLOBAL STYLES
+// ===================================
+
+// CSS variables for backward compatibility
+:root {
+  --color-primary: #{$color-primary};
+  --color-primary-hover: #{$color-primary-hover};
+  --color-primary-light: #{$color-primary-light};
+
+  --color-bg: #{$color-bg-app};
+  --color-surface: #{$color-bg-surface};
+  --color-surface-hover: #{$color-bg-hover};
+
+  --color-text: #{$color-text-primary};
+  --color-text-light: #{$color-text-secondary};
+  --color-text-lighter: #{$color-text-tertiary};
+
+  --color-border: #{$color-border};
+  --color-border-light: #{$color-border-light};
+
+  --border-radius: #{$radius-md};
+  --border-radius-sm: #{$radius-sm};
+  --border-radius-lg: #{$radius-xl};
+
+  --spacing: #{$spacing-xl};
+  --header-height: #{$header-height};
+}
+
+// ===================================
+// RESET & BASE STYLES
+// ===================================
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html, body, #root {
+  height: 100%;
+  width: 100%;
+}
+
+body {
+  font-family: $font-family-base;
+  background: $color-bg-app;
+  color: $color-text-primary;
+  line-height: $line-height-normal;
+  overflow: hidden;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+// ===================================
+// APP LAYOUT
+// ===================================
+
+.app {
+  display: flex;
+  height: 100vh;
+  width: 100vw;
+  background: $color-bg-surface;
+}
+
+// ===================================
+// BUTTONS
+// ===================================
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  background: none;
+  cursor: pointer;
+  border-radius: $radius-md;
+  font-family: $font-family-base;
+  font-size: $font-size-base;
+  font-weight: $font-weight-medium;
+  transition: all $transition-base;
+  padding: $spacing-sm $spacing-lg;
+  gap: $spacing-sm;
+  user-select: none;
+
+  &:focus-visible {
+    outline: 2px solid $color-primary;
+    outline-offset: 2px;
+  }
+
+  // Primary button
+  &--primary {
+    background: $color-primary;
+    color: $color-text-inverse;
+
+    &:hover:not(:disabled) {
+      background: $color-primary-hover;
+    }
+
+    &:active:not(:disabled) {
+      transform: scale(0.98);
+    }
+  }
+
+  // Secondary button
+  &--secondary {
+    background: transparent;
+    color: $color-text-primary;
+    border: 1px solid $color-border-medium;
+
+    &:hover:not(:disabled) {
+      background: $color-bg-hover;
+    }
+
+    &:active:not(:disabled) {
+      transform: scale(0.98);
+    }
+  }
+
+  // Icon button
+  &--icon {
+    padding: $spacing-sm;
+    color: $color-text-secondary;
+    border-radius: $radius-md;
+
+    &:hover {
+      background-color: $color-bg-hover;
+      color: $color-text-primary;
+    }
+
+    &:active {
+      transform: scale(0.95);
+    }
+  }
+
+  // Logout button
+  &--logout {
+    color: $color-text-secondary;
+    width: 100%;
+    justify-content: flex-start;
+    padding: $spacing-md $spacing-lg;
+    border-radius: $radius-md;
+
+    &:hover {
+      color: $color-error;
+      background-color: $color-error-bg;
+    }
+
+    &:active {
+      transform: scale(0.98);
+    }
+  }
+
+  // Disabled state
+  &:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+}
+
+// ===================================
+// SCROLLBAR
+// ===================================
+
+::-webkit-scrollbar {
+  width: $scrollbar-width;
+  height: $scrollbar-width;
+}
+
+::-webkit-scrollbar-track {
+  background: $scrollbar-bg;
+}
+
+::-webkit-scrollbar-thumb {
+  background: $scrollbar-thumb;
+  border-radius: 3px;
+  transition: background-color $transition-base;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: $scrollbar-thumb-hover;
+}
+
+// Firefox scrollbar
+* {
+  scrollbar-width: thin;
+  scrollbar-color: $scrollbar-thumb transparent;
+}
+
+// ===================================
+// GLOBAL ANIMATIONS
+// ===================================
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes fadeOut {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideInLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes slideInRight {
+  from {
+    opacity: 0;
+    transform: translateX(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.7;
+    transform: scale(0.95);
+  }
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes bounce {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+// Animation utility classes
+.fade-in {
+  animation: fadeIn $transition-base;
+}
+
+.slide-up {
+  animation: slideUp $transition-base;
+}
+
+.slide-down {
+  animation: slideDown $transition-base;
+}
+
+.pulse {
+  animation: pulse 2s infinite;
+}
+
+.spinning {
+  animation: spin 1s linear infinite;
+}
+
+// ===================================
+// UTILITY CLASSES
+// ===================================
+
+.text-primary {
+  color: $color-text-primary !important;
+}
+
+.text-secondary {
+  color: $color-text-secondary !important;
+}
+
+.text-tertiary {
+  color: $color-text-tertiary !important;
+}
+
+.bg-hover {
+  background-color: $color-bg-hover !important;
+}
+
+.bg-active {
+  background-color: $color-bg-active !important;
+}
+
+.truncate {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+// ===================================
+// FOCUS VISIBLE
+// ===================================
+
+:focus-visible {
+  outline: 2px solid $color-primary;
+  outline-offset: 2px;
+  border-radius: $radius-sm;
+}
+
+// ===================================
+// SELECTION
+// ===================================
+
+::selection {
+  background: rgba(0, 0, 0, 0.1);
+  color: $color-text-primary;
+}
+
+// ===================================
+// RESPONSIVE BREAKPOINTS
+// ===================================
+
+// Mobile
+@media (max-width: $breakpoint-mobile) {
+  .sidebar {
+    width: 100%;
+    position: absolute;
+    z-index: $z-index-fixed;
+  }
+
+  .user-panel {
+    display: none;
+  }
+
+  .chat-area {
+    width: 100%;
+  }
+}
+
+// Tablet
+@media (max-width: $breakpoint-tablet) {
+  .user-panel {
+    width: 260px;
+  }
+
+  .sidebar {
+    width: 280px;
+  }
+}

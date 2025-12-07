@@ -1,0 +1,96 @@
+.authLayout {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #fafafa;
+}
+
+.background {
+  display: flex;
+  width: 100%;
+  max-width: 900px;
+  background: #ffffff;
+  border-radius: 0;
+  box-shadow: none;
+  overflow: hidden;
+
+  @media (max-width: 768px) {
+    flex-direction: column;
+  }
+}
+
+.brandSection {
+  flex: 1;
+  background: #ffffff;
+  border-right: 1px solid #e5e5e5;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 60px 40px;
+
+  @media (max-width: 768px) {
+    border-right: none;
+    border-bottom: 1px solid #e5e5e5;
+    padding: 40px 20px;
+    min-height: auto;
+  }
+}
+
+.brandContent {
+  max-width: 320px;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 32px;
+  font-size: 24px;
+  font-weight: 600;
+  color: #000000;
+}
+
+.logoIcon {
+  font-size: 32px;
+}
+
+.logoText {
+  font-size: 24px;
+  letter-spacing: -0.5px;
+}
+
+.brandTitle {
+  font-size: 20px;
+  font-weight: 500;
+  margin-bottom: 12px;
+  line-height: 1.4;
+  color: #000000;
+
+  @media (max-width: 768px) {
+    font-size: 18px;
+  }
+}
+
+.brandDescription {
+  font-size: 15px;
+  line-height: 1.6;
+  color: #666666;
+
+  @media (max-width: 768px) {
+    font-size: 14px;
+  }
+}
+
+.formSection {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 60px 40px;
+  background: #ffffff;
+
+  @media (max-width: 768px) {
+    padding: 40px 20px;
+  }
+}

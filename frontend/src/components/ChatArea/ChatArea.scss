@@ -1,0 +1,587 @@
+@import '../../styles/design-tokens.scss';
+
+// ===================================
+// CHAT AREA COMPONENT
+// ===================================
+
+.chat-area {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  background: $color-bg-surface;
+  position: relative;
+  height: 100vh;
+
+  // Header
+  &__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 $spacing-2xl;
+    height: $header-height;
+    background: $color-bg-surface;
+    border-bottom: 1px solid $color-border;
+    z-index: $z-index-sticky;
+    flex-shrink: 0;
+  }
+
+  // Messages container
+  &__messages {
+    flex: 1;
+    padding: $spacing-2xl;
+    overflow-y: auto;
+    overflow-x: hidden;
+    display: flex;
+    flex-direction: column;
+    gap: $spacing-lg;
+    background: $color-bg-surface;
+    scroll-behavior: smooth;
+  }
+
+  // Input form
+  &__input-form {
+    display: flex;
+    align-items: flex-end;
+    gap: $spacing-md;
+    padding: $spacing-xl $spacing-2xl;
+    background: $color-bg-surface;
+    border-top: 1px solid $color-border;
+    flex-shrink: 0;
+
+    .input-actions {
+      display: flex;
+      gap: 4px;
+      align-self: center;
+    }
+  }
+
+  // Input field
+  &__input {
+    flex: 1;
+    padding: $spacing-md $spacing-lg;
+    border: 1px solid $color-border-medium;
+    border-radius: 24px;
+    font-family: $font-family-base;
+    font-size: $font-size-md;
+    color: $color-text-primary; // ✅ FIX: Явно указываем цвет текста
+    background: $color-bg-surface;
+    outline: none;
+    resize: none;
+    min-height: 44px;
+    max-height: 120px;
+    line-height: $line-height-normal;
+    transition: border-color $transition-base, box-shadow $transition-base;
+
+    &:focus {
+      border-color: $color-primary;
+      box-shadow: 0 0 0 3px rgba(0, 0, 0, 0.05);
+    }
+
+    &::placeholder {
+      color: $color-text-tertiary;
+    }
+
+    &:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+      background: $color-bg-hover;
+    }
+  }
+
+  // Empty state
+  &--empty {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: $color-bg-surface;
+
+    .empty-state {
+      text-align: center;
+      color: $color-text-secondary;
+      animation: fadeIn $transition-slow;
+
+      svg {
+        margin-bottom: $spacing-lg;
+        color: $color-border-medium;
+      }
+
+      h3 {
+        font-size: $font-size-2xl;
+        margin-bottom: $spacing-sm;
+        color: $color-text-primary;
+        font-weight: $font-weight-semibold;
+      }
+
+      p {
+        font-size: $font-size-md;
+        color: $color-text-secondary;
+        margin: 0;
+      }
+    }
+  }
+}
+
+// Chat info in header
+.chat-info {
+  display: flex;
+  align-items: center;
+  gap: $spacing-md;
+}
+
+.chat-avatar-group {
+  position: relative;
+
+  .avatar-placeholder {
+    width: $avatar-md;
+    height: $avatar-md;
+    background: $color-bg-hover;
+    color: $color-text-secondary;
+  }
+}
+
+.chat-details {
+  h3 {
+    font-size: $font-size-xl;
+    font-weight: $font-weight-semibold;
+    color: $color-text-primary;
+    margin: 0 0 2px 0;
+  }
+
+  .chat-status {
+    font-size: $font-size-base;
+    color: $color-text-secondary;
+    font-weight: $font-weight-normal;
+  }
+}
+
+.chat-actions {
+  display: flex;
+  gap: 4px;
+}
+
+// Date divider
+.date-divider {
+  display: flex;
+  justify-content: center;
+  margin: $spacing-xl 0;
+  animation: fadeIn $transition-base;
+
+  span {
+    background: $color-bg-hover;
+    padding: 6px $spacing-lg;
+    border-radius: 20px;
+    font-size: $font-size-sm;
+    color: $color-text-secondary;
+    border: 1px solid $color-border;
+    font-weight: $font-weight-medium;
+  }
+}
+
+// Loading indicator for infinite scroll
+.loading-indicator {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: $spacing-sm;
+  padding: $spacing-md 0;
+  color: $color-text-secondary;
+  font-size: $font-size-sm;
+  animation: fadeIn $transition-base;
+
+  svg {
+    animation: spin 1s linear infinite;
+  }
+
+  span {
+    font-weight: $font-weight-medium;
+  }
+}
+
+// Message
+.message {
+  display: flex;
+  max-width: 70%;
+  gap: $spacing-md;
+  animation: slideUp 0.15s ease-out;
+
+  // Own messages
+  &--own {
+    align-self: flex-end;
+    flex-direction: row-reverse;
+
+    .message__content {
+      align-items: flex-end;
+    }
+
+    .message__bubble {
+      background: $color-primary;
+      color: $color-text-inverse;
+      border-bottom-right-radius: $radius-sm;
+    }
+
+    .message__time {
+      text-align: right;
+    }
+  }
+
+  // Failed message state
+  &--failed {
+    opacity: 0.7;
+
+    .message__bubble {
+      background: $color-error-bg;
+      color: $color-error;
+      border: 1px solid lighten($color-error, 20%);
+    }
+  }
+
+  &__avatar {
+    flex-shrink: 0;
+
+    .avatar-placeholder.small {
+      width: $avatar-sm;
+      height: $avatar-sm;
+      font-size: $font-size-base;
+      background: $color-bg-hover;
+      color: $color-text-secondary;
+    }
+  }
+
+  &__content {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    min-width: 0;
+  }
+
+  &__sender {
+    font-size: $font-size-base;
+    font-weight: $font-weight-medium;
+    color: $color-text-secondary;
+    margin-bottom: 2px;
+  }
+
+  &__bubble {
+    background: $color-bg-hover;
+    padding: $spacing-md $spacing-lg;
+    border-radius: $radius-message;
+    border-bottom-left-radius: $radius-sm;
+    position: relative;
+    box-shadow: $shadow-sm;
+    transition: box-shadow $transition-base;
+    will-change: transform;
+    contain: layout;
+
+    &:hover {
+      box-shadow: $shadow-md;
+    }
+
+    p {
+      margin: 0;
+      word-wrap: break-word;
+      line-height: $line-height-relaxed;
+      color: inherit;
+    }
+  }
+
+  &__attachments {
+    margin-top: $spacing-sm;
+  }
+
+  &__time {
+    font-size: $font-size-xs;
+    color: $color-text-tertiary;
+    margin-top: 2px;
+    font-weight: $font-weight-normal;
+  }
+
+  // Message status (sending, sent, failed)
+  &__status {
+    font-size: $font-size-xs;
+    color: $color-text-tertiary;
+    font-weight: $font-weight-medium;
+    margin-top: 4px;
+    font-style: italic;
+    display: inline-block;
+
+    &--error {
+      color: $color-error;
+    }
+  }
+}
+
+// Send button
+.btn--send {
+  padding: $spacing-md $spacing-xl;
+  background: $color-primary;
+  color: $color-text-inverse;
+  border: none;
+  border-radius: 24px;
+  font-size: $font-size-md;
+  font-weight: $font-weight-medium;
+  cursor: pointer;
+  transition: background-color $transition-base, transform $transition-fast;
+  align-self: flex-end;
+  display: flex;
+  align-items: center;
+  gap: $spacing-sm;
+
+  &:hover:not(:disabled) {
+    background: $color-primary-hover;
+  }
+
+  &:active:not(:disabled) {
+    transform: scale(0.98);
+  }
+
+  &:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+}
+
+// Avatar placeholder
+.avatar-placeholder {
+  border-radius: $radius-full;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: $font-weight-semibold;
+  background: #000000;
+  color: #ffffff;
+  overflow: hidden;
+
+  &.small {
+    width: $avatar-sm;
+    height: $avatar-sm;
+    font-size: $font-size-base;
+  }
+
+  &.primary {
+    background: #000000;
+    color: #ffffff;
+  }
+
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+}
+
+// Scrollbar styling
+.chat-area__messages::-webkit-scrollbar {
+  width: $scrollbar-width;
+}
+
+.chat-area__messages::-webkit-scrollbar-track {
+  background: $scrollbar-bg;
+}
+
+.chat-area__messages::-webkit-scrollbar-thumb {
+  background: $scrollbar-thumb;
+  border-radius: 3px;
+  transition: background-color $transition-base;
+}
+
+.chat-area__messages::-webkit-scrollbar-thumb:hover {
+  background: $scrollbar-thumb-hover;
+}
+
+// Animations
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(5px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+// Spinning class for loader icon
+.spinning {
+  animation: spin 1s linear infinite;
+}
+
+// Emoji picker
+.emoji-picker-wrapper {
+  position: relative;
+}
+
+.emoji-picker-container {
+  position: absolute;
+  bottom: 100%;
+  left: 0;
+  margin-bottom: $spacing-sm;
+  z-index: $z-index-modal;
+  box-shadow: $shadow-lg;
+  border-radius: $radius-lg;
+  overflow: hidden;
+}
+
+// Selected files preview
+.selected-files {
+  display: flex;
+  flex-wrap: wrap;
+  gap: $spacing-sm;
+  padding: $spacing-sm 0;
+}
+
+.file-chip {
+  display: flex;
+  align-items: center;
+  gap: $spacing-sm;
+  padding: $spacing-xs $spacing-md;
+  background: $color-bg-hover;
+  border: 1px solid $color-border;
+  border-radius: $radius-lg;
+  font-size: $font-size-sm;
+  color: $color-text-primary;
+  max-width: 200px;
+
+  .file-name {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .file-remove {
+    background: none;
+    border: none;
+    color: $color-text-secondary;
+    cursor: pointer;
+    font-size: $font-size-xl;
+    line-height: 1;
+    padding: 0;
+    width: 20px;
+    height: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: $radius-full;
+    transition: background-color $transition-fast, color $transition-fast;
+
+    &:hover {
+      background: $color-error-bg;
+      color: $color-error;
+    }
+  }
+}
+
+// Message attachments
+.attachments-images {
+  display: flex;
+  gap: $spacing-xs;
+  max-width: 400px;
+
+  &--grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: $spacing-xs;
+  }
+
+  .attachment-image {
+    display: block;
+    border-radius: $radius-md;
+    overflow: hidden;
+    cursor: pointer;
+    transition: transform $transition-fast;
+
+    &:hover {
+      transform: scale(1.02);
+    }
+
+    img {
+      width: 100%;
+      height: auto;
+      display: block;
+      max-height: 300px;
+      object-fit: cover;
+    }
+  }
+}
+
+.attachments-files {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-xs;
+  margin-top: $spacing-xs;
+}
+
+.attachment-file {
+  display: flex;
+  align-items: center;
+  gap: $spacing-md;
+  padding: $spacing-sm $spacing-md;
+  background: rgba(0, 0, 0, 0.03);
+  border-radius: $radius-md;
+  text-decoration: none;
+  color: inherit;
+  transition: background-color $transition-fast;
+  max-width: 300px;
+
+  &:hover {
+    background: rgba(0, 0, 0, 0.05);
+  }
+
+  &__icon {
+    flex-shrink: 0;
+    color: $color-text-secondary;
+  }
+
+  &__info {
+    flex: 1;
+    min-width: 0;
+  }
+
+  &__name {
+    font-size: $font-size-sm;
+    font-weight: $font-weight-medium;
+    color: $color-text-primary;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  &__size {
+    font-size: $font-size-xs;
+    color: $color-text-tertiary;
+    margin-top: 2px;
+  }
+
+  &__download {
+    flex-shrink: 0;
+    color: $color-text-tertiary;
+  }
+}
+
+// For own messages, adjust attachment styles
+.message--own {
+  .attachment-file {
+    background: rgba(255, 255, 255, 0.15);
+
+    &:hover {
+      background: rgba(255, 255, 255, 0.25);
+    }
+  }
+}

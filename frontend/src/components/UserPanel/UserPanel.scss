@@ -1,0 +1,273 @@
+@import '../../styles/design-tokens.scss';
+
+// ===================================
+// USER PANEL COMPONENT
+// ===================================
+
+.user-panel {
+  width: $user-panel-width;
+  background: $color-bg-surface;
+  border-left: 1px solid $color-border;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  height: 100vh;
+
+  // Current user section
+  &__current-user {
+    display: flex;
+    align-items: center;
+    padding: $spacing-xl;
+    gap: $spacing-md;
+    background: $color-bg-surface;
+    border-bottom: 1px solid $color-border;
+    flex-shrink: 0;
+  }
+
+  // Members section
+  &__members {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+  }
+
+  // Footer with logout
+  &__footer {
+    padding: $spacing-xl;
+    border-top: 1px solid $color-border;
+    flex-shrink: 0;
+  }
+}
+
+// User avatar
+.user-avatar {
+  position: relative;
+
+  .avatar-placeholder.large {
+    width: $avatar-lg;
+    height: $avatar-lg;
+    font-size: $font-size-xl;
+    background: $color-bg-hover;
+    color: $color-text-secondary;
+  }
+}
+
+// User info
+.user-info {
+  flex: 1;
+  min-width: 0;
+
+  &__name {
+    font-weight: $font-weight-semibold;
+    font-size: $font-size-lg;
+    color: $color-text-primary;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    margin-bottom: 2px;
+  }
+
+  &__role {
+    font-size: $font-size-base;
+    color: $color-text-secondary;
+  }
+}
+
+// User actions
+.user-actions {
+  display: flex;
+  gap: 4px;
+}
+
+// Section header
+.section-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: $spacing-xl $spacing-xl $spacing-md $spacing-xl;
+  flex-shrink: 0;
+
+  h4 {
+    font-size: $font-size-sm;
+    color: $color-text-secondary;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    font-weight: $font-weight-semibold;
+    margin: 0;
+  }
+}
+
+// Member count badge
+.member-count {
+  background: $color-bg-hover;
+  color: $color-text-secondary;
+  font-size: $font-size-xs;
+  padding: 2px $spacing-sm;
+  border-radius: $radius-xl;
+  font-weight: $font-weight-semibold;
+  min-width: 20px;
+  text-align: center;
+}
+
+// Members list
+.members-list {
+  flex: 1;
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding: 0 $spacing-xl;
+}
+
+// Member item
+.member {
+  display: flex;
+  align-items: center;
+  padding: $spacing-md 0;
+  gap: $spacing-md;
+  border-bottom: 1px solid $color-border-light;
+  transition: background-color $transition-base;
+  cursor: pointer;
+  margin: 0 (-$spacing-xl);
+  padding-left: $spacing-xl;
+  padding-right: $spacing-xl;
+  border-radius: $radius-md;
+
+  &:last-child {
+    border-bottom: none;
+  }
+
+  &:hover {
+    background: $color-bg-hover;
+  }
+
+  &__avatar {
+    position: relative;
+    flex-shrink: 0;
+  }
+
+  &__info {
+    flex: 1;
+    min-width: 0;
+  }
+
+  &__name {
+    font-size: $font-size-base;
+    font-weight: $font-weight-medium;
+    color: $color-text-primary;
+    display: flex;
+    align-items: center;
+    gap: $spacing-sm;
+    margin-bottom: 2px;
+  }
+
+  &__role {
+    font-size: $font-size-sm;
+    color: $color-text-secondary;
+  }
+
+  &__status {
+    flex-shrink: 0;
+
+    .status-online {
+      font-size: $font-size-xs;
+      color: $color-success;
+      font-weight: $font-weight-medium;
+    }
+
+    .status-offline {
+      font-size: $font-size-xs;
+      color: $color-text-tertiary;
+    }
+  }
+}
+
+// Online indicator
+.online-indicator {
+  position: absolute;
+  bottom: 2px;
+  right: 2px;
+  width: 12px;
+  height: 12px;
+  border-radius: $radius-full;
+  background: $color-success;
+  border: 2px solid $color-bg-surface;
+  animation: pulse 2s infinite;
+
+  &.small {
+    width: 8px;
+    height: 8px;
+    bottom: 1px;
+    right: 1px;
+  }
+}
+
+// You badge
+.you-badge {
+  background: $color-bg-hover;
+  color: $color-text-primary;
+  font-size: $font-size-xs;
+  padding: 2px 6px;
+  border-radius: $radius-md;
+  font-weight: $font-weight-semibold;
+}
+
+// Avatar placeholder
+.avatar-placeholder {
+  border-radius: $radius-full;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: $font-weight-semibold;
+  background: #000000;
+  color: #ffffff;
+  overflow: hidden;
+
+  &.small {
+    width: $avatar-sm;
+    height: $avatar-sm;
+    font-size: $font-size-base;
+  }
+
+  &.large {
+    width: $avatar-lg;
+    height: $avatar-lg;
+    font-size: $font-size-xl;
+  }
+
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+}
+
+// Scrollbar
+.members-list::-webkit-scrollbar {
+  width: $scrollbar-width;
+}
+
+.members-list::-webkit-scrollbar-track {
+  background: $scrollbar-bg;
+}
+
+.members-list::-webkit-scrollbar-thumb {
+  background: $scrollbar-thumb;
+  border-radius: 3px;
+  transition: background-color $transition-base;
+}
+
+.members-list::-webkit-scrollbar-thumb:hover {
+  background: $scrollbar-thumb-hover;
+}
+
+// Animations
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.7;
+    transform: scale(0.95);
+  }
+}

@@ -1,0 +1,52 @@
+// NewDirectModal uses shared modal styles from src/styles/modals.scss
+// Additional specific styles below
+
+.loading-indicator {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  padding: 24px;
+  color: var(--text-secondary);
+
+  .spinner {
+    animation: spin 1s linear infinite;
+  }
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.empty-state {
+  padding: 48px 24px;
+  text-align: center;
+  color: var(--text-secondary);
+  font-size: 14px;
+}
+
+.error-message {
+  padding: 12px;
+  margin: 0 16px 16px;
+  background: var(--error-light);
+  color: var(--error);
+  border-radius: 8px;
+  font-size: 14px;
+}
+
+.avatar-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 50%;
+
+  &.small {
+    width: 40px;
+    height: 40px;
+  }
+}

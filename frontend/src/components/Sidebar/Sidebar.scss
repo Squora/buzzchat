@@ -1,0 +1,418 @@
+@import '../../styles/design-tokens.scss';
+
+// ===================================
+// SIDEBAR COMPONENT
+// ===================================
+
+.sidebar {
+  width: $sidebar-width;
+  background: $color-bg-surface;
+  border-right: 1px solid $color-border;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  height: 100vh;
+
+  // Header
+  &__header {
+    display: flex;
+    flex-direction: column;
+    gap: $spacing-md;
+    padding: $spacing-xl;
+    background: $color-bg-surface;
+    border-bottom: 1px solid $color-border;
+    flex-shrink: 0;
+  }
+
+  &__title {
+    display: flex;
+    align-items: center;
+    gap: $spacing-md;
+
+    h2 {
+      font-size: $font-size-2xl;
+      font-weight: $font-weight-semibold;
+      color: $color-text-primary;
+      letter-spacing: -0.5px;
+      margin: 0;
+    }
+  }
+
+  &__actions {
+    display: flex;
+    gap: $spacing-sm;
+    width: 100%;
+  }
+
+  &__content {
+    flex: 1;
+    overflow-y: auto;
+    overflow-x: hidden;
+  }
+}
+
+// Badge для счетчика
+.badge {
+  background: $color-bg-hover;
+  color: $color-text-secondary;
+  font-size: $font-size-xs;
+  font-weight: $font-weight-semibold;
+  padding: 2px $spacing-sm;
+  border-radius: $radius-xl;
+  min-width: 24px;
+  text-align: center;
+}
+
+// New chat buttons
+.btn--new-chat {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: $spacing-sm $spacing-md;
+  background: $color-primary;
+  color: $color-text-inverse;
+  border: none;
+  border-radius: $radius-md;
+  font-size: $font-size-sm;
+  font-weight: $font-weight-medium;
+  cursor: pointer;
+  transition: background-color $transition-base, transform $transition-fast;
+  flex: 1;
+  min-width: 0;
+
+  &:hover {
+    background: $color-primary-hover;
+  }
+
+  &:active {
+    transform: scale(0.98);
+  }
+
+  span {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  svg {
+    flex-shrink: 0;
+  }
+}
+
+// Search box
+.search-box {
+  display: flex;
+  align-items: center;
+  gap: $spacing-md;
+  padding: $spacing-lg $spacing-xl;
+  background: $color-bg-surface;
+  border-bottom: 1px solid $color-border;
+  color: $color-text-secondary;
+  flex-shrink: 0;
+
+  input {
+    flex: 1;
+    border: none;
+    outline: none;
+    background: transparent;
+    font-size: $font-size-md;
+    color: $color-text-primary;
+    font-family: $font-family-base;
+
+    &::placeholder {
+      color: $color-text-tertiary;
+    }
+  }
+}
+
+// Tab sections (Групповые чаты / Личные сообщения)
+.tab-section {
+  border-bottom: 1px solid $color-border-light;
+
+  &:last-child {
+    border-bottom: none;
+  }
+}
+
+.tab-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: $spacing-md $spacing-xl;
+  background: $color-bg-hover;
+  cursor: pointer;
+  user-select: none;
+  transition: background-color $transition-base;
+
+  &:hover {
+    background: $color-bg-active;
+  }
+
+  &__left {
+    display: flex;
+    align-items: center;
+    gap: $spacing-sm;
+    font-size: $font-size-sm;
+    font-weight: $font-weight-semibold;
+    color: $color-text-secondary;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+
+    svg {
+      width: 16px;
+      height: 16px;
+    }
+  }
+
+  &__right {
+    display: flex;
+    align-items: center;
+    gap: $spacing-sm;
+
+    svg {
+      width: 16px;
+      height: 16px;
+      color: $color-text-tertiary;
+      transition: transform $transition-base;
+    }
+  }
+
+  &.collapsed {
+    .tab-header__right svg {
+      transform: rotate(-90deg);
+    }
+  }
+}
+
+.tab-count {
+  background: $color-border;
+  color: $color-text-secondary;
+  font-size: $font-size-xs;
+  font-weight: $font-weight-semibold;
+  padding: 2px $spacing-sm;
+  border-radius: $radius-xl;
+  min-width: 20px;
+  text-align: center;
+}
+
+.tab-content {
+  animation: slideDown $transition-base;
+}
+
+// Chat item
+.chat-item {
+  display: flex;
+  align-items: center;
+  gap: $spacing-md;
+  padding: $spacing-md $spacing-xl;
+  cursor: pointer;
+  transition: background-color $transition-base;
+  border-left: 3px solid transparent;
+  position: relative;
+
+  &:hover {
+    background: $color-bg-hover;
+
+    .chat-item__settings {
+      opacity: 1;
+    }
+  }
+
+  &--selected {
+    background: $color-bg-active;
+    border-left-color: $color-primary;
+  }
+
+  &--unread {
+    background: $color-unread-bg;
+
+    .chat-item__name {
+      font-weight: $font-weight-semibold;
+    }
+
+    .chat-item__last-message {
+      font-weight: $font-weight-medium;
+      color: $color-text-primary;
+    }
+  }
+
+  &__avatar {
+    position: relative;
+    flex-shrink: 0;
+  }
+
+  &__content {
+    flex: 1;
+    min-width: 0;
+  }
+
+  &__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    margin-bottom: 4px;
+    gap: $spacing-sm;
+  }
+
+  &__name {
+    font-size: $font-size-md;
+    font-weight: $font-weight-medium;
+    color: $color-text-primary;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  &__actions {
+    display: flex;
+    align-items: center;
+    gap: $spacing-sm;
+    flex-shrink: 0;
+  }
+
+  &__time {
+    font-size: $font-size-xs;
+    color: $color-text-tertiary;
+    white-space: nowrap;
+  }
+
+  &__settings {
+    opacity: 0;
+    transition: opacity $transition-base;
+  }
+
+  &__last-message {
+    font-size: $font-size-base;
+    color: $color-text-secondary;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    margin: 0 0 4px 0;
+  }
+
+  &__meta {
+    display: flex;
+    align-items: center;
+    gap: $spacing-sm;
+  }
+
+  &__members {
+    font-size: $font-size-xs;
+    color: $color-text-tertiary;
+  }
+}
+
+// Unread dot
+.unread-dot {
+  position: absolute;
+  top: -2px;
+  right: -2px;
+  width: 10px;
+  height: 10px;
+  background: $color-unread-dot;
+  border-radius: $radius-full;
+  border: 2px solid $color-bg-surface;
+  animation: pulse 2s infinite;
+}
+
+// Empty section
+.empty-section {
+  padding: $spacing-2xl $spacing-xl;
+  text-align: center;
+
+  p {
+    color: $color-text-secondary;
+    font-size: $font-size-base;
+    margin: 0;
+  }
+}
+
+// Avatar placeholder
+.avatar-placeholder {
+  border-radius: $radius-full;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: $font-weight-semibold;
+  background: #000000;
+  color: #ffffff;
+  overflow: hidden;
+
+  &.small {
+    width: $avatar-sm;
+    height: $avatar-sm;
+    font-size: $font-size-base;
+  }
+
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+}
+
+// Icon buttons
+.btn--icon {
+  padding: $spacing-sm;
+  color: $color-text-secondary;
+  background: none;
+  border: none;
+  border-radius: $radius-md;
+  cursor: pointer;
+  transition: all $transition-base;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  &:hover {
+    background: $color-bg-hover;
+    color: $color-text-primary;
+  }
+
+  &:active {
+    transform: scale(0.95);
+  }
+}
+
+// Scrollbar styling
+.sidebar__content::-webkit-scrollbar {
+  width: $scrollbar-width;
+}
+
+.sidebar__content::-webkit-scrollbar-track {
+  background: $scrollbar-bg;
+}
+
+.sidebar__content::-webkit-scrollbar-thumb {
+  background: $scrollbar-thumb;
+  border-radius: 3px;
+  transition: background-color $transition-base;
+}
+
+.sidebar__content::-webkit-scrollbar-thumb:hover {
+  background: $scrollbar-thumb-hover;
+}
+
+// Animations
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.7;
+    transform: scale(0.95);
+  }
+}

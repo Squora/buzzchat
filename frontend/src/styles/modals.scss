@@ -1,0 +1,463 @@
+@import './design-tokens.scss';
+
+// ===================================
+// MODALS - SHARED STYLES
+// ===================================
+
+// Modal overlay
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: $color-bg-overlay;
+  backdrop-filter: blur(4px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: $z-index-modal-backdrop;
+  padding: $spacing-xl;
+  animation: fadeIn $transition-base;
+}
+
+// Modal content container
+.modal-content {
+  background: $color-bg-surface;
+  border-radius: $radius-xl;
+  width: 100%;
+  max-width: 500px;
+  max-height: 80vh;
+  display: flex;
+  flex-direction: column;
+  box-shadow: $shadow-modal;
+  animation: slideUp $transition-base;
+
+  &--small {
+    max-width: 400px;
+  }
+}
+
+// Modal header
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: $spacing-xl;
+  border-bottom: 1px solid $color-border;
+  flex-shrink: 0;
+
+  h3 {
+    font-size: $font-size-2xl;
+    font-weight: $font-weight-semibold;
+    color: $color-text-primary;
+    margin: 0;
+  }
+}
+
+// Modal search
+.modal-search {
+  display: flex;
+  align-items: center;
+  gap: $spacing-md;
+  padding: $spacing-xl;
+  color: $color-text-secondary;
+  border-bottom: 1px solid $color-border;
+  flex-shrink: 0;
+
+  input {
+    flex: 1;
+    border: none;
+    outline: none;
+    background: transparent;
+    font-size: $font-size-md;
+    color: $color-text-primary;
+    font-family: $font-family-base;
+
+    &::placeholder {
+      color: $color-text-tertiary;
+    }
+  }
+}
+
+// Modal body
+.modal-body {
+  flex: 1;
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding: $spacing-xl;
+}
+
+// Modal actions (footer buttons)
+.modal-actions {
+  display: flex;
+  gap: $spacing-md;
+  padding: $spacing-xl;
+  border-top: 1px solid $color-border;
+  flex-shrink: 0;
+
+  .btn--full {
+    flex: 1;
+  }
+}
+
+// ===================================
+// USER LIST STYLES
+// ===================================
+
+.users-list {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.user-item {
+  display: flex;
+  align-items: center;
+  gap: $spacing-md;
+  padding: $spacing-md;
+  border-radius: $radius-md;
+  cursor: pointer;
+  transition: background-color $transition-base;
+
+  &:hover {
+    background: $color-bg-hover;
+  }
+
+  &.selected {
+    background: $color-bg-active;
+  }
+
+  &__avatar {
+    position: relative;
+    flex-shrink: 0;
+  }
+
+  &__info {
+    flex: 1;
+    min-width: 0;
+  }
+
+  &__name {
+    font-weight: $font-weight-medium;
+    color: $color-text-primary;
+    margin-bottom: 2px;
+  }
+
+  &__role {
+    font-size: $font-size-base;
+    color: $color-text-secondary;
+  }
+
+  &__check {
+    color: $color-primary;
+    font-weight: $font-weight-semibold;
+    font-size: $font-size-xl;
+  }
+
+  &__icon {
+    color: $color-text-tertiary;
+  }
+}
+
+// ===================================
+// SELECTED USERS
+// ===================================
+
+.selected-users {
+  margin-bottom: $spacing-xl;
+
+  &__label {
+    font-size: $font-size-base;
+    color: $color-text-secondary;
+    margin-bottom: $spacing-sm;
+    font-weight: $font-weight-medium;
+  }
+
+  &__list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: $spacing-sm;
+  }
+}
+
+.selected-user {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background: $color-bg-hover;
+  padding: 6px 8px 6px $spacing-md;
+  border-radius: 20px;
+  font-size: $font-size-base;
+  animation: slideUp $transition-fast;
+
+  &__avatar {
+    width: 20px;
+    height: 20px;
+    border-radius: $radius-full;
+    background: $color-primary;
+    color: $color-text-inverse;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: $font-size-xs;
+    font-weight: $font-weight-semibold;
+  }
+
+  &__name {
+    color: $color-text-primary;
+    font-weight: $font-weight-medium;
+  }
+
+  .btn--remove {
+    padding: 2px;
+    color: $color-text-secondary;
+
+    &:hover {
+      background: $color-border;
+      border-radius: $radius-full;
+    }
+  }
+}
+
+// ===================================
+// GROUP CREATION
+// ===================================
+
+.group-creation {
+  margin-bottom: $spacing-xl;
+}
+
+// ===================================
+// AVATAR UPLOAD
+// ===================================
+
+.avatar-upload {
+  display: flex;
+  align-items: center;
+  gap: $spacing-lg;
+  margin-bottom: $spacing-lg;
+
+  &__preview {
+    position: relative;
+
+    .avatar-placeholder.large {
+      width: $avatar-xl;
+      height: $avatar-xl;
+      font-size: $font-size-2xl;
+      background: #000000;
+      color: #ffffff;
+      border-radius: $radius-md;
+    }
+
+    .avatar-image {
+      width: $avatar-xl;
+      height: $avatar-xl;
+      border-radius: $radius-md;
+      object-fit: cover;
+    }
+  }
+
+  &__actions {
+    flex: 1;
+
+    .btn--upload {
+      width: 100%;
+      justify-content: flex-start;
+      margin-bottom: $spacing-sm;
+    }
+  }
+
+  &__hint {
+    font-size: $font-size-sm;
+    color: $color-text-secondary;
+  }
+}
+
+// ===================================
+// FORM ELEMENTS
+// ===================================
+
+.form-group {
+  margin-bottom: $spacing-xl;
+
+  label {
+    display: block;
+    font-size: $font-size-base;
+    font-weight: $font-weight-medium;
+    color: $color-text-primary;
+    margin-bottom: $spacing-sm;
+  }
+}
+
+.form-input {
+  width: 100%;
+  padding: $spacing-md $spacing-lg;
+  border: 1px solid $color-border-medium;
+  border-radius: $radius-md;
+  font-size: $font-size-lg;
+  font-family: $font-family-base;
+  color: $color-text-primary;
+  background: $color-bg-surface;
+  outline: none;
+  transition: border-color $transition-base, box-shadow $transition-base;
+
+  &:focus {
+    border-color: $color-primary;
+    box-shadow: 0 0 0 3px rgba(0, 0, 0, 0.05);
+  }
+
+  &::placeholder {
+    color: $color-text-tertiary;
+  }
+}
+
+// ===================================
+// CHAT SETTINGS
+// ===================================
+
+.chat-info-section {
+  display: flex;
+  align-items: center;
+  gap: $spacing-lg;
+  padding: $spacing-lg;
+  background: $color-bg-hover;
+  border-radius: $radius-md;
+  margin-bottom: $spacing-xl;
+
+  .chat-avatar {
+    .avatar-placeholder.large {
+      width: $avatar-xl;
+      height: $avatar-xl;
+      font-size: $font-size-2xl;
+      background: #000000;
+      color: #ffffff;
+    }
+  }
+
+  .chat-details {
+    flex: 1;
+
+    h4 {
+      font-size: $font-size-xl;
+      font-weight: $font-weight-semibold;
+      color: $color-text-primary;
+      margin: 0 0 4px 0;
+    }
+
+    p {
+      font-size: $font-size-md;
+      color: $color-text-secondary;
+      margin: 0;
+    }
+  }
+}
+
+.settings-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.settings-action {
+  display: flex;
+  align-items: center;
+  gap: $spacing-md;
+  padding: $spacing-md $spacing-lg;
+  border: none;
+  background: transparent;
+  border-radius: $radius-md;
+  cursor: pointer;
+  font-size: $font-size-md;
+  color: $color-text-primary;
+  font-family: $font-family-base;
+  font-weight: $font-weight-medium;
+  transition: background-color $transition-base;
+  text-align: left;
+
+  &:hover {
+    background: $color-bg-hover;
+  }
+
+  &--danger {
+    color: $color-error;
+
+    &:hover {
+      background: $color-error-bg;
+    }
+  }
+
+  svg {
+    flex-shrink: 0;
+  }
+
+  span {
+    flex: 1;
+  }
+}
+
+// ===================================
+// BUTTONS IN MODALS
+// ===================================
+
+.btn {
+  &--secondary {
+    background: transparent;
+    color: $color-text-primary;
+    border: 1px solid $color-border-medium;
+
+    &:hover:not(:disabled) {
+      background: $color-bg-hover;
+    }
+  }
+
+  &--full {
+    width: 100%;
+  }
+}
+
+// ===================================
+// SCROLLBAR FOR MODALS
+// ===================================
+
+.modal-body::-webkit-scrollbar {
+  width: $scrollbar-width;
+}
+
+.modal-body::-webkit-scrollbar-track {
+  background: $scrollbar-bg;
+}
+
+.modal-body::-webkit-scrollbar-thumb {
+  background: $scrollbar-thumb;
+  border-radius: 3px;
+  transition: background-color $transition-base;
+}
+
+.modal-body::-webkit-scrollbar-thumb:hover {
+  background: $scrollbar-thumb-hover;
+}
+
+// ===================================
+// ANIMATIONS
+// ===================================
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
